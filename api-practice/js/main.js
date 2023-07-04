@@ -1,18 +1,20 @@
 //Example fetch using pokemonapi.co
-document.querySelector('button').addEventListener('click', getFetch)
+document.querySelector('button').addEventListener('click', getFact)
 
-function getFetch(){
-  const choice = document.querySelector('input').value
-  const url = 'https://pokeapi.co/api/v2/pokemon/'+choice
 
-  fetch(url)
+function getFact(){
+  const factUrl = 'https://catfact.ninja/fact'
+  const imgUrl= 'https://cataas.com/api/cats';
+  fetch(factUrl)
       .then(res => res.json()) // parse response as JSON
       .then(data => {
-        console.log(data)
+        document.querySelector('.facts').innerHTML = data.fact
       })
-      .catch(err => {
-          console.log(`error ${err}`)
-      });
+  fetch(imgUrl)
+      .then(res=> res.json())
+      .then(data=> {
+        document.querySelector('.randomImg').src = `https://cataas.com/cat/${data._id}`
+      })
 }
 
 
