@@ -1,24 +1,27 @@
 //Example fetch using pokemonapi.co
-document.querySelector('button').addEventListener('click', getFetch)
+document.querySelector('button').addEventListener('click', setCountry)
 
-function getFetch(){
-  const choice = document.querySelector('input').value
-  console.log(choice)
-  const url = `https://api.nasa.gov/planetary/apod?api_key=iJy0Nd4wZZzfW2HFgBkNV4DDUsZ6PxL3RqQRgFfI&date=${choice}`
+// Function to get the current date and time
+function getCurrentDateAndTime() {
+  const dateTime = new Date();
+  return dateTime.toLocaleString();
+}
+
+// Target an HTML element to display the current date and time
+const dateDisplay = document.querySelector(".todayDate");
+
+// Set the innerHTML of the element to the current date and time returned by the function
+dateDisplay.innerHTML = getCurrentDateAndTime();
+function setCountry(){
+  const country = document.querySelector('input').value
+  console.log(country)
+  const url = `https://holidayapi.com/v1/countries?pretty&key=75f7a248-693f-4dd5-9715-e08874c08fb1`
 
   fetch(url)
       .then(res => res.json()) // parse response as JSON
       .then(data => {
-        console.log(data)
-        if(data.media_type === "image"){
-          document.querySelector('img').src = data.hdurl
-        }else if(data.media_type === 'video'){
-          document.querySelector('iframe').src = data.url
-        }else{
-          alert('Media Not Supported - Contact NASA IMMEDIATLY')
-        }
-       
-        document.querySelector('h3').innerText = data.explanation
+        console.log(data.countries[136])
+        
       })
       .catch(err => {
           console.log(`error ${err}`)
